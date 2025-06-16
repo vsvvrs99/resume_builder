@@ -1,0 +1,216 @@
+/* style.css */
+
+/* Google Fonts - Inter is loaded via HTML, ensuring it's available for font-inter utility. */
+/* Using 'Inter' as the primary font throughout, with fallbacks. */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Base styles for the resume preview content */
+#resume-preview-content {
+    transition: all 0.3s ease-in-out; /* Smooth transition for template changes */
+}
+
+/* --- Template: Default --- */
+/* This template uses the existing Tailwind-based styling, focusing on clean separation. */
+#resume-preview-content.template-default {
+    /* Headings */
+    #preview-personal-info h2 {
+        color: #1f2937; /* Gray-900 */
+    }
+    #preview-summary h3,
+    #preview-experience h3,
+    #preview-education h3,
+    #preview-skills h3,
+    #preview-projects h3 {
+        color: #374151; /* Gray-800 */
+        border-bottom-color: #e5e7eb; /* Gray-200 */
+    }
+
+    /* Text */
+    p, ul, li {
+        color: #374151; /* Gray-700 */
+    }
+
+    /* Links */
+    a {
+        color: #2563eb; /* Blue-600 */
+    }
+
+    /* Profile Image positioning for default */
+    #preview-personal-info {
+        flex-direction: row; /* Image and text side-by-side */
+        align-items: center;
+        text-align: left;
+    }
+    #preview-profile-image {
+        margin-right: 1rem;
+    }
+}
+
+/* --- Template: Modern --- */
+/* A more contemporary design with subtle backgrounds, rounded corners, and slightly softer colors. */
+#resume-preview-content.template-modern {
+    background-color: #f8fafc; /* Light blue-gray background */
+    border-color: #cbd5e1; /* Slate-300 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    border-radius: 1rem; /* More rounded corners */
+    padding: 2.5rem; /* Slightly more padding */
+    font-family: 'Inter', sans-serif; /* Ensure font consistency */
+
+
+    /* Headings */
+    #preview-personal-info h2 {
+        color: #1a202c; /* Darker text for name */
+        font-weight: 700; /* Bold */
+        letter-spacing: -0.025em; /* Tighten letter spacing */
+        font-size: 2.8rem; /* Slightly larger name */
+    }
+    #preview-summary h3,
+    #preview-experience h3,
+    #preview-education h3,
+    #preview-skills h3,
+    #preview-projects h3 {
+        color: #2d3748; /* Darker gray for section headings */
+        font-weight: 600; /* Semi-bold */
+        border-bottom: 2px solid #a0aec0; /* A slightly darker, more prominent border */
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.5rem; /* Larger section headings */
+    }
+    #preview-experience-list h4,
+    #preview-education-list h4,
+    #preview-projects-list h4 {
+        color: #4a5568; /* Slightly softer heading color */
+        font-weight: 600;
+        font-size: 1.15rem; /* Slightly larger sub-headings */
+    }
+
+    /* Text */
+    p, ul, li {
+        color: #4a5568; /* Softer text color */
+        line-height: 1.75; /* Slightly increased line height for readability */
+        font-size: 1rem;
+    }
+
+    /* Links */
+    a {
+        color: #4299e1; /* Lighter blue for links */
+        text-decoration: none; /* No underline by default */
+        transition: color 0.2s ease-in-out;
+    }
+    a:hover {
+        color: #3182ce; /* Darker blue on hover */
+        text-decoration: underline;
+    }
+
+    /* Personal Info adjustments for modern template */
+    #preview-personal-info {
+        flex-direction: column; /* Image on top, text below */
+        align-items: center;
+        text-align: center;
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(to right, #e2e8f0, #cbd5e1); /* Subtle gradient background */
+        border-radius: 0.75rem;
+        padding-top: 1.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    #preview-profile-image {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 1rem;
+        border: 3px solid #cbd5e1; /* Light border around image */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    #preview-personal-info p {
+        justify-content: center; /* Center contact info */
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Template: Minimalist --- */
+/* Clean, simple, and spacious layout with minimal adornments. */
+#resume-preview-content.template-minimalist {
+    background-color: #ffffff;
+    border: none; /* No border */
+    box-shadow: none; /* No shadow */
+    padding: 2rem;
+    font-family: 'Inter', sans-serif; /* Ensure font consistency */
+
+    /* Headings */
+    #preview-personal-info h2 {
+        color: #000000; /* Pure black for name */
+        font-weight: 700;
+        font-size: 2.5rem; /* Larger name */
+        margin-bottom: 0.5rem;
+    }
+    #preview-summary h3,
+    #preview-experience h3,
+    #preview-education h3,
+    #preview-skills h3,
+    #preview-projects h3 {
+        color: #212121; /* Very dark gray */
+        font-weight: 600;
+        text-transform: uppercase; /* Uppercase section titles */
+        font-size: 1.1rem;
+        border-bottom: 1px solid #e0e0e0; /* Lighter, thinner border */
+        padding-bottom: 0.4rem;
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.05em; /* More letter spacing */
+    }
+    #preview-experience-list h4,
+    #preview-education-list h4,
+    #preview-projects-list h4 {
+        color: #333333; /* Darker text for sub-headings */
+        font-weight: 500;
+    }
+
+    /* Text */
+    p, ul, li {
+        color: #424242; /* Slightly softer black */
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+    .list-disc {
+        list-style-type: '— '; /* Custom dash bullet */
+    }
+    .list-disc li {
+        margin-bottom: 0.2rem;
+    }
+
+    /* Links */
+    a {
+        color: #1a73e8; /* Google blue for links */
+        text-decoration: none;
+        font-weight: 500;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Personal Info adjustments for minimalist template */
+    #preview-personal-info {
+        flex-direction: row; /* Image and text side-by-side */
+        align-items: flex-start; /* Align to top */
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e0e0e0; /* More prominent separator below personal info */
+    }
+    #preview-profile-image {
+        border-radius: 0; /* Square image */
+        width: 90px;
+        height: 90px;
+        margin-right: 1.5rem;
+        border: none;
+        box-shadow: none;
+    }
+    #preview-personal-info p {
+        justify-content: flex-start; /* Align contact info to left */
+    }
+    #preview-personal-info span, #preview-personal-info a {
+        font-size: 0.9rem;
+    }
+}

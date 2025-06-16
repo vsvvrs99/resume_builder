@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator</title>
+    <!-- Link to Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS for layout and specific styling -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2pdf.js library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="font-inter antialiased">
+    <!-- Main container for the resume generator application -->
+    <div id="app" class="flex flex-col md:flex-row h-screen">
+        <!-- Left Pane: Data Entry Form -->
+        <div id="left-pane" class="w-full md:w-1/2 p-4 md:p-8 overflow-y-auto bg-gray-50 border-r border-gray-200">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6 rounded-lg p-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg">
+                Resume Builder
+            </h1>
+            <p class="text-gray-600 mb-6">Enter your details on the left, and see your resume update in real-time on the right.</p>
+
+            <!-- Data Entry Form -->
+            <form id="resume-form" class="space-y-6">
+
+                <!-- Personal Information Section (Fixed position) -->
+                <div id="personal-info-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="personal">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Personal Information
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" placeholder="john.doe@example.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="linkedin" class="block text-sm font-medium text-gray-700 mb-1">LinkedIn URL</label>
+                            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/johndoe" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="github" class="block text-sm font-medium text-gray-700 mb-1">GitHub URL</label>
+                            <input type="url" id="github" name="github" placeholder="https://github.com/yourusername" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="portfolio" class="block text-sm font-medium text-gray-700 mb-1">Portfolio/Website URL</label>
+                            <input type="url" id="portfolio" name="portfolio" placeholder="https://johndoe.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="profile-image" class="block text-sm font-medium text-gray-700 mb-1">Profile Image</label>
+                            <input type="file" id="profile-image" name="profileImage" accept="image/*" class="mt-1 block w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-md file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-blue-50 file:text-blue-700
+                                hover:file:bg-blue-100">
+                            <p class="mt-1 text-xs text-gray-500">Upload a professional headshot. Max size 2MB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary/Objective Section (Now with reorder buttons) -->
+                <div id="summary-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="summary">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Summary / Objective
+                        <div class="section-move-btns space-x-1">
+                            <button type="button" class="move-section-up-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="summary" title="Move Section Up">&#9650;</button>
+                            <button type="button" class="move-section-down-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="summary" title="Move Section Down">&#9660;</button>
+                        </div>
+                    </h2>
+                    <div>
+                        <label for="summary" class="block text-sm font-medium text-gray-700 mb-1">Briefly describe yourself and your career goals.</label>
+                        <textarea id="summary" name="summary" rows="4" placeholder="Highly motivated and detail-oriented professional seeking to leverage skills in..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- Experience Section (Now with reorder buttons) -->
+                <div id="experience-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="experience">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Work Experience
+                        <div class="section-move-btns space-x-1">
+                            <button type="button" class="move-section-up-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="experience" title="Move Section Up">&#9650;</button>
+                            <button type="button" class="move-section-down-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="experience" title="Move Section Down">&#9660;</button>
+                        </div>
+                    </h2>
+                    <div id="experience-entries" class="space-y-6">
+                        <!-- Experience entries will be dynamically added here by JS -->
+                    </div>
+                    <button type="button" id="add-experience-btn" class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Add New Experience</button>
+                </div>
+
+                <!-- Education Section (Now with reorder buttons) -->
+                <div id="education-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="education">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Education
+                        <div class="section-move-btns space-x-1">
+                            <button type="button" class="move-section-up-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="education" title="Move Section Up">&#9650;</button>
+                            <button type="button" class="move-section-down-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="education" title="Move Section Down">&#9660;</button>
+                        </div>
+                    </h2>
+                    <div id="education-entries" class="space-y-6">
+                        <!-- Education entries will be dynamically added here by JS -->
+                    </div>
+                    <button type="button" id="add-education-btn" class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Add New Education</button>
+                </div>
+
+                <!-- Skills Section (Now with reorder buttons) -->
+                <div id="skills-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="skills">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Skills
+                        <div class="section-move-btns space-x-1">
+                            <button type="button" class="move-section-up-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="skills" title="Move Section Up">&#9650;</button>
+                            <button type="button" class="move-section-down-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="skills" title="Move Section Down">&#9660;</button>
+                        </div>
+                    </h2>
+                    <div>
+                        <label for="skills" class="block text-sm font-medium text-gray-700 mb-1">List your skills, separated by commas (e.g., JavaScript, React, Node.js)</label>
+                        <textarea id="skills" name="skills" rows="3" placeholder="JavaScript, React, Node.js, HTML, CSS, SQL, Git, AWS" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- Projects Section (Now with reorder buttons) -->
+                <div id="project-section-form" class="bg-white p-6 rounded-lg shadow-md border border-gray-200" data-section-id="project">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex justify-between items-center">
+                        Projects
+                        <div class="section-move-btns space-x-1">
+                            <button type="button" class="move-section-up-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="project" title="Move Section Up">&#9650;</button>
+                            <button type="button" class="move-section-down-btn text-gray-500 hover:text-gray-700 text-sm font-bold p-1 rounded" data-section-id="project" title="Move Section Down">&#9660;</button>
+                        </div>
+                    </h2>
+                    <div id="project-entries" class="space-y-6">
+                        <!-- Project entries will be dynamically added here by JS -->
+                    </div>
+                    <button type="button" id="add-project-btn" class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Add New Project</button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col sm:flex-row justify-end gap-4">
+                    <button type="button" id="clear-all-btn" class="flex-1 bg-red-500 text-white py-3 px-6 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-lg font-semibold shadow-md">
+                        Clear All
+                    </button>
+                    <button type="button" id="download-pdf-btn" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 text-lg font-semibold shadow-md">
+                        Download PDF
+                    </button>
+                    <!-- Loading indicator for PDF generation -->
+                    <div id="pdf-loading-indicator" class="hidden flex-1 justify-center items-center py-3 px-6 rounded-md bg-gray-200 text-gray-700 text-lg font-semibold">
+                        Generating PDF...
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Pane: Live Resume Preview -->
+        <div id="right-pane" class="w-full md:w-1/2 p-4 md:p-8 overflow-y-auto bg-white shadow-inner">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6 rounded-lg p-2 bg-gradient-to-r from-green-500 to-teal-600 text-white shadow-lg">
+                Live Resume Preview
+            </h1>
+            <p class="text-gray-600 mb-6">Your resume will be generated here instantly.</p>
+
+            <!-- Template Selection -->
+            <div class="mb-6 bg-white p-4 rounded-lg shadow-md border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">Choose a Template</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button type="button" class="template-select-btn template-default bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm font-semibold shadow-sm" data-template="default">
+                        Default
+                    </button>
+                    <button type="button" class="template-select-btn template-modern bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 text-sm font-semibold shadow-sm" data-template="modern">
+                        Modern
+                    </button>
+                    <button type="button" class="template-select-btn template-minimalist bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 text-sm font-semibold shadow-sm" data-template="minimalist">
+                        Minimalist
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resume content will be rendered here dynamically based on sectionOrder -->
+            <div id="resume-preview-content" class="border border-gray-300 p-6 md:p-8 rounded-lg shadow-lg bg-white min-h-[600px] template-default">
+                <!-- Sections will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
